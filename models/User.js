@@ -18,31 +18,27 @@ const userSchema = new Schema({
       validator: function (v) {
         return /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(v);
       },
-      message: (props) => `${props.value} is nota valid email!`,
+      message: (props) => `${props.value} is not a valid email!`,
     },
   },
   thoughts: [
     {
       type: Schema.Types.ObjectId,
-      ref: "thougts",
+      ref: "thought",
     },
-  ],     
-  friends:[
+  ],
+  friends: [
     {
-        type:Schema.Types.ObjectId,
-        ref:'user'
-    }
-  ]
-},
-);
+      type: Schema.Types.ObjectId,
+      ref: "user",
+    },
+  ],
+});
 
+userSchema.virtual("friendCount").get(function () {
+  return this.friends.length;
+});
 
+const User = model("user", userSchema);
 
-userSchema.virtual('friendCount').get(function () {
-    return this.friends.length
-})
-
-
-const User = model('user',userSchema)
-
-module.exports = User
+module.exports = User;
