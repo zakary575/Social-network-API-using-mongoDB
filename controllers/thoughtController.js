@@ -2,7 +2,7 @@ const { User, Thought } = require("../models");
 
 module.exports = {
   // Get all thoughts
-  async getThougts(req, res) {
+  async getThoughts(req, res) {
     try {
       const thoughts = await Thought.find();
 
